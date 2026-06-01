@@ -15,6 +15,14 @@
   <img src="https://img.shields.io/badge/architecture-MVC-blue" alt="MVC">
 </p>
 
+<p align="left">
+  <a href="https://youtu.be/Z-wose2pUlA">
+    <img src="https://img.shields.io/badge/▶_Watch_Demo-YouTube-FF0000?logo=youtube&logoColor=white" alt="Demo Video">
+  </a>
+</p>
+
+> **🎬 Demo video:** [youtu.be/Z-wose2pUlA](https://youtu.be/Z-wose2pUlA)
+
 ---
 
 ## Table of Contents
@@ -420,7 +428,7 @@ Improvements identified during the project retrospective:
 
 ## Team
 
-**CS 411 — Team 080 (yoyo)**
+**CS 411 — Team 080 (yoyo)** · 🎬 [Demo video](https://youtu.be/Z-wose2pUlA)
 
 | Role    | Name           | Email                    |
 | ------- | -------------- | ------------------------ |
