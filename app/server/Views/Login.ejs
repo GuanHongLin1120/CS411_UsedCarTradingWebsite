@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f1f1f1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-box {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+
+    .login-box h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .login-box input[type="text"],
+    .login-box input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+
+    .login-box button:hover {
+      background-color: #0056b3;
+    }
+
+    .error {
+      color: red;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>Login Page</h2>
+
+    <% if (typeof error !== 'undefined') { %>
+      <p class="error"><%= error %></p>
+    <% } %>
+
+    <form id="loginForm">
+      <input type="text" name="username" id="username" placeholder="User Name" required>
+      <input type="password" name="password" id="password" placeholder="PassWord" required>
+      <button type="button" id="loginBtn">Login</button>
+    </form>
+    
+    <button onclick="window.location.pathname = '/user/register'" type="button">
+      New User? Register Now!
+    </button>
+  </div>
+
+  <script>
+    document.getElementById('loginBtn').addEventListener('click', async function() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      
+      const loginData = {
+        source: 'login',
+        Name: username,
+        Password: password
+      };
+
+      try {
+        const response = await fetch('/user/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(loginData)
+        });
+
+        const result = await response.json();
+        
+        if (result.success) {
+          // 登录成功后的处理 - 改为显示Success提示
+          const successMsg = document.createElement('div');
+          successMsg.textContent = 'Success';
+          successMsg.style.position = 'fixed';
+          successMsg.style.top = '20px';
+          successMsg.style.left = '50%';
+          successMsg.style.transform = 'translateX(-50%)';
+          successMsg.style.padding = '10px 20px';
+          successMsg.style.backgroundColor = '#4CAF50';
+          successMsg.style.color = 'white';
+          successMsg.style.borderRadius = '5px';
+          successMsg.style.zIndex = '1000';
+          document.body.appendChild(successMsg);
+          
+          // 0.5秒后移除提示
+          setTimeout(() => {
+            document.body.removeChild(successMsg);
+             window.location.href = '/';
+          }, 500);
+
+
+        } else {
+          // 显示Fail提示 - 替代原来的alert
+          const failMsg = document.createElement('div');
+          failMsg.textContent = 'Fail';
+          failMsg.style.position = 'fixed';
+          failMsg.style.top = '20px';
+          failMsg.style.left = '50%';
+          failMsg.style.transform = 'translateX(-50%)';
+          failMsg.style.padding = '10px 20px';
+          failMsg.style.backgroundColor = '#f44336';
+          failMsg.style.color = 'white';
+          failMsg.style.borderRadius = '5px';
+          failMsg.style.zIndex = '1000';
+          document.body.appendChild(failMsg);
+          
+          // 0.5秒后移除提示
+          setTimeout(() => {
+            document.body.removeChild(failMsg);
+          }, 500);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        // 网络错误提示
+        const errorMsg = document.createElement('div');
+        errorMsg.textContent = 'Connection Error';
+        errorMsg.style.position = 'fixed';
+        errorMsg.style.top = '20px';
+        errorMsg.style.left = '50%';
+        errorMsg.style.transform = 'translateX(-50%)';
+        errorMsg.style.padding = '10px 20px';
+        errorMsg.style.backgroundColor = '#f44336';
+        errorMsg.style.color = 'white';
+        errorMsg.style.borderRadius = '5px';
+        errorMsg.style.zIndex = '1000';
+        document.body.appendChild(errorMsg);
+        
+        // 0.5秒后移除提示
+        setTimeout(() => {
+          document.body.removeChild(errorMsg);
+        }, 500);
+      }
+    });
+  </script>
+</body>
+</html>
